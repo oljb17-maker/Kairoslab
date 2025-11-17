@@ -1,4 +1,4 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -39,10 +39,11 @@
       display: flex;
       gap: 6px;
       margin-bottom: 10px;
+      flex-wrap: wrap;
     }
 
     .lang-tab {
-      flex: 1;
+      flex: 1 1 18%;
       padding: 6px 0;
       border-radius: 999px;
       border: 1px solid rgba(148,163,184,0.4);
@@ -53,6 +54,7 @@
       letter-spacing: 0.08em;
       cursor: pointer;
       transition: all 0.18s ease;
+      text-align: center;
     }
 
     .lang-tab.active {
@@ -329,6 +331,9 @@
   <div class="lang-tabs">
     <button class="lang-tab active" data-lang="es">ES</button>
     <button class="lang-tab" data-lang="en">EN</button>
+    <button class="lang-tab" data-lang="fr">FR</button>
+    <button class="lang-tab" data-lang="pt">PT</button>
+    <button class="lang-tab" data-lang="ru">RU</button>
   </div>
 
   <div class="header-title" id="appTitle">Trip Cost Estimator</div>
@@ -504,7 +509,7 @@
 
 <script>
   let currentLang = "es";
-  let lastSummary = ""; // texto que usaremos en el email
+  let lastSummary = ""; // texto para el email
 
   const translations = {
     es: {
@@ -624,6 +629,183 @@
         labelCostPerStop: "Average cost per stop",
         footer: "Sent from the Ottoleox Trip Cost Estimator app."
       }
+    },
+    fr: {
+      appTitle: "Trip Cost Estimator",
+      appSubtitle: "Estime le coût de ta tournée en essence ou électricité selon ton véhicule. Pensé pour les chauffeurs de livraison.",
+      badgeText: "Essence · Hybrides · EV · Ottoleox",
+      section1Title: "1. Données du trajet",
+      milesLabel: "Miles totaux du trajet :",
+      milesHint: "Inclure aller, tournée et retour.",
+      stopsLabel: "Nombre d'arrêts (optionnel) :",
+      stopsHint: "Pour voir le coût moyen par arrêt.",
+      section2Title: "2. Type de véhicule",
+      vehicleHint: "Choisis la catégorie qui se rapproche le plus de ton véhicule. Tu peux ajuster le MPG ou les mi/kWh si tu connais tes chiffres réels.",
+      categoryLabel: "Catégorie :",
+      mpgLabel: "MPG estimé (essence) :",
+      mpgHint: "Utilise comme référence ; ajuste si tu connais ta conso réelle.",
+      miPerKwhLabel: "Efficacité EV (mi/kWh) :",
+      miPerKwhHint: "S'applique uniquement si tu choisis EV.",
+      section3Title: "3. Prix essence & électricité",
+      gasPriceLabel: "Prix par gallon (USD) :",
+      gasPriceHint: "Ex : 3.50",
+      kwhPriceLabel: "Prix du kWh L2 / maison (USD) :",
+      kwhPriceHint: "Ex : 0.15",
+      calcBtn: "Calculer le coût approximatif",
+      emailBtn: "Envoyer le rapport par email",
+      goToFlexBtn: "Aller au calculateur Amazon Flex",
+      resultsTitle: "Résultat",
+      resultsChip: "Estimation",
+      energyUsedLabelGas: "Gallons utilisés (approx.) :",
+      energyUsedLabelEv: "kWh utilisés (approx.) :",
+      totalCostLabel: "Coût total du trajet :",
+      costPerMileLabel: "Coût par mile :",
+      costPerStopLabel: "Coût moyen par arrêt :",
+      resNoteGas: "Ceci est une estimation basée sur le MPG et le prix de l'essence. La consommation réelle peut varier avec le trafic, la météo, la charge et ton style de conduite.",
+      resNoteEv: "Ceci est une estimation basée sur mi/kWh et le prix du kWh. La conso réelle varie avec la température, la vitesse, le poids et le type de borne.",
+      footerSmall: "Créé par un driver, pour les conducteurs essence, hybrides et EV.",
+      modeGas: "Mode actuel : <strong>Essence</strong>",
+      modeEv: "Mode actuel : <strong>EV (électrique)</strong>",
+      alerts: {
+        miles: "Merci d'indiquer les miles totaux du trajet.",
+        mpg: "Merci d'indiquer un MPG valide pour ton véhicule.",
+        gasPrice: "Merci d'indiquer le prix par gallon.",
+        miPerKwh: "Merci d'indiquer une efficacité mi/kWh valide pour ton EV.",
+        kwhPrice: "Merci d'indiquer le prix du kWh."
+      },
+      email: {
+        subject: "Rapport de trajet - Trip Cost Estimator",
+        greeting: "Bonjour,\n\nVoici le rapport généré depuis l'app Trip Cost Estimator :",
+        labelModeGas: "Mode : Essence",
+        labelModeEv: "Mode : EV (électrique)",
+        labelMiles: "Miles totaux",
+        labelStops: "Arrêts",
+        labelStopsNA: "Aucun arrêt saisi",
+        labelEnergyGas: "Gallons utilisés (approx.)",
+        labelEnergyEv: "kWh utilisés (approx.)",
+        labelTotalCost: "Coût total",
+        labelCostPerMile: "Coût par mile",
+        labelCostPerStop: "Coût moyen par arrêt",
+        footer: "Envoyé depuis l'app Ottoleox Trip Cost Estimator."
+      }
+    },
+    pt: {
+      appTitle: "Trip Cost Estimator",
+      appSubtitle: "Calcule o custo aproximado da sua rota em gasolina ou eletricidade, de acordo com o tipo de veículo. Feito para motoristas de delivery.",
+      badgeText: "Gasolina · Híbridos · EV · Ottoleox",
+      section1Title: "1. Dados da rota",
+      milesLabel: "Milhas totais da rota:",
+      milesHint: "Ida, rota e volta incluídas.",
+      stopsLabel: "Número de paradas (opcional):",
+      stopsHint: "Para ver o custo médio por parada.",
+      section2Title: "2. Tipo de veículo",
+      vehicleHint: "Selecione a categoria que mais se parece com seu carro. Você pode ajustar o MPG ou mi/kWh se souber seu consumo real.",
+      categoryLabel: "Categoria:",
+      mpgLabel: "MPG estimado (gasolina):",
+      mpgHint: "Use como referência; ajuste se souber seu consumo real.",
+      miPerKwhLabel: "Eficiência EV (mi/kWh):",
+      miPerKwhHint: "Só vale se escolher EV.",
+      section3Title: "3. Preços de gasolina e energia",
+      gasPriceLabel: "Preço por galão (USD):",
+      gasPriceHint: "Ex: 3.50",
+      kwhPriceLabel: "Preço kWh L2 / casa (USD):",
+      kwhPriceHint: "Ex: 0.15",
+      calcBtn: "Calcular custo aproximado",
+      emailBtn: "Enviar relatório por email",
+      goToFlexBtn: "Ir para calculadora Amazon Flex",
+      resultsTitle: "Resultado",
+      resultsChip: "Estimativa",
+      energyUsedLabelGas: "Galões usados (aprox.):",
+      energyUsedLabelEv: "kWh usados (aprox.):",
+      totalCostLabel: "Custo total da rota:",
+      costPerMileLabel: "Custo por milha:",
+      costPerStopLabel: "Custo médio por parada:",
+      resNoteGas: "Isto é apenas uma estimativa com base em MPG e preço do galão. O consumo real varia com trânsito, clima, carga e estilo de direção.",
+      resNoteEv: "Esta é uma estimativa baseada em mi/kWh e preço do kWh. O consumo real muda com temperatura, velocidade, peso e tipo de carregador.",
+      footerSmall: "Feito por um driver, para motoristas de gasolina, híbridos e EV.",
+      modeGas: "Modo atual: <strong>Gasolina</strong>",
+      modeEv: "Modo atual: <strong>EV (elétrico)</strong>",
+      alerts: {
+        miles: "Por favor, informe as milhas totais da rota.",
+        mpg: "Por favor, informe um MPG válido para seu veículo.",
+        gasPrice: "Por favor, informe o preço por galão.",
+        miPerKwh: "Por favor, informe uma eficiência mi/kWh válida para seu EV.",
+        kwhPrice: "Por favor, informe o preço do kWh."
+      },
+      email: {
+        subject: "Relatório de rota - Trip Cost Estimator",
+        greeting: "Olá,\n\nSegue o relatório gerado pelo app Trip Cost Estimator:",
+        labelModeGas: "Modo: Gasolina",
+        labelModeEv: "Modo: EV (elétrico)",
+        labelMiles: "Milhas totais",
+        labelStops: "Paradas",
+        labelStopsNA: "Nenhuma parada informada",
+        labelEnergyGas: "Galões usados (aprox.)",
+        labelEnergyEv: "kWh usados (aprox.)",
+        labelTotalCost: "Custo total",
+        labelCostPerMile: "Custo por milha",
+        labelCostPerStop: "Custo médio por parada",
+        footer: "Enviado pelo app Ottoleox Trip Cost Estimator."
+      }
+    },
+    ru: {
+      appTitle: "Trip Cost Estimator",
+      appSubtitle: "Оценивает примерную стоимость поездки на бензине или электричестве в зависимости от типа автомобиля. Для водителей-доставщиков.",
+      badgeText: "Бензин · Гибрид · EV · Ottoleox",
+      section1Title: "1. Данные поездки",
+      milesLabel: "Общее количество миль:",
+      milesHint: "Включи дорогу туда, маршрут и обратный путь.",
+      stopsLabel: "Количество остановок (опционально):",
+      stopsHint: "Чтобы увидеть среднюю стоимость на одну остановку.",
+      section2Title: "2. Тип автомобиля",
+      vehicleHint: "Выбери категорию, которая больше всего похожа на твою машину. Можно подправить MPG или mi/kWh, если знаешь реальные цифры.",
+      categoryLabel: "Категория:",
+      mpgLabel: "Оценочный расход (MPG, бензин):",
+      mpgHint: "Используй как ориентир; измени, если знаешь реальный расход.",
+      miPerKwhLabel: "Эффективность EV (mi/kWh):",
+      miPerKwhHint: "Применимо только если выбран EV.",
+      section3Title: "3. Цена бензина и электроэнергии",
+      gasPriceLabel: "Цена за галлон (USD):",
+      gasPriceHint: "Например: 3.50",
+      kwhPriceLabel: "Цена за kWh L2 / дом (USD):",
+      kwhPriceHint: "Например: 0.15",
+      calcBtn: "Рассчитать примерную стоимость",
+      emailBtn: "Отправить отчёт по email",
+      goToFlexBtn: "Перейти к калькулятору Amazon Flex",
+      resultsTitle: "Результат",
+      resultsChip: "Оценка",
+      energyUsedLabelGas: "Примерно использовано галлонов:",
+      energyUsedLabelEv: "Примерно использовано kWh:",
+      totalCostLabel: "Итоговая стоимость поездки:",
+      costPerMileLabel: "Стоимость за милю:",
+      costPerStopLabel: "Средняя стоимость за остановку:",
+      resNoteGas: "Это приблизительная оценка, основанная на MPG и цене за галлон. Реальный расход зависит от пробок, погоды, веса груза и стиля вождения.",
+      resNoteEv: "Это приблизительная оценка по mi/kWh и цене kWh. Реальный расход меняется в зависимости от температуры, скорости, веса и типа зарядки.",
+      footerSmall: "Создано драйвером для драйверов на бензине, гибридов и EV.",
+      modeGas: "Текущий режим: <strong>Бензин</strong>",
+      modeEv: "Текущий режим: <strong>EV (электро)</strong>",
+      alerts: {
+        miles: "Пожалуйста, укажи общее количество миль поездки.",
+        mpg: "Пожалуйста, укажи корректное значение MPG для авто.",
+        gasPrice: "Пожалуйста, укажи цену за галлон.",
+        miPerKwh: "Пожалуйста, укажи корректное значение mi/kWh для EV.",
+        kwhPrice: "Пожалуйста, укажи цену за kWh."
+      },
+      email: {
+        subject: "Отчёт по маршруту - Trip Cost Estimator",
+        greeting: "Привет,\n\nВот отчёт, сгенерированный в приложении Trip Cost Estimator:",
+        labelModeGas: "Режим: Бензин",
+        labelModeEv: "Режим: EV (электро)",
+        labelMiles: "Всего миль",
+        labelStops: "Остановки",
+        labelStopsNA: "Остановки не указаны",
+        labelEnergyGas: "Использовано галлонов (примерно)",
+        labelEnergyEv: "Использовано kWh (примерно)",
+        labelTotalCost: "Итоговая стоимость",
+        labelCostPerMile: "Стоимость за милю",
+        labelCostPerStop: "Средняя стоимость за остановку",
+        footer: "Отправлено из приложения Ottoleox Trip Cost Estimator."
+      }
     }
   };
 
@@ -681,7 +863,6 @@
 
   const langTabs        = document.querySelectorAll(".lang-tab");
 
-  // Defaults por tipo de vehículo
   const defaults = {
     sedan_compacto: { mpg: 32, miPerKwh: null, mode: "gas" },
     sedan_mediano:  { mpg: 29, miPerKwh: null, mode: "gas" },
@@ -729,13 +910,18 @@
     costPerStopLabel.textContent = t.costPerStopLabel;
     footerSmall.textContent = t.footerSmall;
 
-    // Modo visible según selección actual
     const type = vehicleTypeEl.value;
     const def = defaults[type];
     if (def && def.mode === "ev") {
       modeTag.innerHTML = t.modeEv;
     } else {
       modeTag.innerHTML = t.modeGas;
+    }
+
+    // Actualizar nota según modo actual si ya hay resultado
+    if (resultsBox.style.display === "block") {
+      const mode = def && def.mode === "ev" ? "ev" : "gas";
+      resNote.textContent = mode === "ev" ? t.resNoteEv : t.resNoteGas;
     }
   }
 
@@ -830,7 +1016,6 @@
 
       resNote.textContent = t.resNoteGas;
 
-      // Construir resumen para email
       const e = t.email;
       summaryLines.push(e.labelModeGas);
       summaryLines.push(`${e.labelMiles}: ${miles.toFixed(1)} mi`);
@@ -847,7 +1032,6 @@
       }
 
     } else {
-      // EV
       if (!miPerKwh || miPerKwh <= 0) {
         alert(t.alerts.miPerKwh);
         return;
@@ -915,7 +1099,6 @@
       `${e.greeting}\n\n${lastSummary}\n\n${e.footer}`
     );
 
-    // mailto sin destinatario fijo, para que el usuario elija el correo
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   }
 
@@ -932,13 +1115,11 @@
 
   function initFlexButton() {
     goToFlexBtn.addEventListener("click", () => {
-      // Cambia esta URL por la de tu calculadora Amazon Flex en GitHub Pages
       const flexUrl = "https://oljb17-maker.github.io/Amazonflexcalculator/";
       window.location.href = flexUrl;
     });
   }
 
-  // Inicialización
   applyTranslations("es");
   updateVehicleDefaults();
   initLangTabs();
