@@ -1,0 +1,952 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trip Cost Estimator</title>
+
+  <!-- Fuente bonita -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
+      color: #e5e7eb;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 540px;
+      background: linear-gradient(145deg, #020617, #020617, #111827);
+      border-radius: 20px;
+      padding: 20px 18px 18px;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(148, 163, 184, 0.15);
+    }
+
+    .lang-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .lang-tab {
+      flex: 1;
+      padding: 6px 0;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: #020617;
+      color: #9ca3af;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .lang-tab.active {
+      background: linear-gradient(135deg, #38bdf8, #22c55e);
+      color: #020617;
+      border-color: transparent;
+      box-shadow: 0 0 12px rgba(56,189,248,0.6);
+      font-weight: 600;
+    }
+
+    .header-title {
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .header-subtitle {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(22,163,74,0.25);
+      border: 1px solid rgba(34,197,94,0.8);
+      color: #4ade80;
+    }
+
+    .section {
+      margin-top: 12px;
+      padding: 12px 12px 14px;
+      border-radius: 12px;
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #60a5fa;
+      margin-bottom: 8px;
+    }
+
+    .hint {
+      font-size: 11px;
+      color: #9ca3af;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .field-group {
+      margin-top: 8px;
+    }
+
+    .label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .label {
+      font-size: 12px;
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .sub-hint {
+      font-size: 10px;
+      color: #6b7280;
+      text-align: right;
+    }
+
+    input[type="number"], select {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 13px;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: #4b5563;
+    }
+
+    input:focus, select:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 1px rgba(56,189,248,0.6);
+    }
+
+    .row-two {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .row-two > div {
+      flex: 1 1 48%;
+      min-width: 140px;
+    }
+
+    .mode-tag {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    .mode-tag strong {
+      color: #38bdf8;
+    }
+
+    .primary-btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, #38bdf8, #22c55e);
+      color: #020617;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(56,189,248,0.6);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .primary-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 0 8px rgba(56,189,248,0.5);
+    }
+
+    .secondary-btn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      outline: none;
+      font-size: 12px;
+      font-weight: 500;
+      background: #020617;
+      color: #e5e7eb;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .secondary-btn:hover {
+      background: rgba(15,23,42,0.9);
+      box-shadow: 0 0 10px rgba(15,23,42,0.6);
+    }
+
+    .results {
+      margin-top: 10px;
+      padding: 12px 11px 12px;
+      border-radius: 12px;
+      background: radial-gradient(circle at top right, #020617, #020617 45%, #020617 100%);
+      border: 1px solid rgba(30, 64, 175, 0.9);
+    }
+
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .results-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #60a5fa;
+    }
+
+    .results-chip {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.7);
+      color: #e5e7eb;
+    }
+
+    .res-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 6px;
+    }
+
+    .res-label {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .res-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .res-value.small {
+      font-size: 14px;
+      color: #a5b4fc;
+    }
+
+    .res-note {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #9ca3af;
+      line-height: 1.4;
+    }
+
+    .footer {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 10px;
+      color: #4b5563;
+    }
+
+    .footer span {
+      font-weight: 600;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: #38bdf8;
+    }
+
+    .footer small {
+      display: block;
+      font-size: 9px;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    /* Teléfonos pequeños */
+    @media (max-width: 360px) {
+      .app { padding: 16px 12px 12px; border-radius: 16px; }
+      .header-title { font-size: 16px; }
+      .header-subtitle { font-size: 11px; }
+      .res-value { font-size: 15px; }
+      .res-value.small { font-size: 13px; }
+    }
+
+    /* Tablets / pantallas grandes */
+    @media (min-width: 768px) {
+      body { padding: 30px; }
+      .app { max-width: 620px; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <!-- Pestañas de idioma -->
+  <div class="lang-tabs">
+    <button class="lang-tab active" data-lang="es">ES</button>
+    <button class="lang-tab" data-lang="en">EN</button>
+  </div>
+
+  <div class="header-title" id="appTitle">Trip Cost Estimator</div>
+  <div class="header-subtitle" id="appSubtitle">
+    Calcula el costo aproximado de tu ruta en gasolina o electricidad
+    según el tipo de vehículo. Pensado para drivers de delivery.
+  </div>
+  <div class="badge" id="badgeText">Gas · Híbridos · EV · Ottoleox</div>
+
+  <!-- Sección 1: Datos básicos -->
+  <section class="section">
+    <div class="section-title" id="section1Title">1. Datos del recorrido</div>
+
+    <div class="field-group">
+      <div class="label-row">
+        <div class="label" id="milesLabel">Millas totales del recorrido:</div>
+        <div class="sub-hint" id="milesHint">Ida, ruta y regreso incluidos.</div>
+      </div>
+      <input type="number" id="milesInput" min="0" step="0.1" placeholder="Ej: 120" />
+    </div>
+
+    <div class="field-group">
+      <div class="label-row">
+        <div class="label" id="stopsLabel">Número de paradas (opcional):</div>
+        <div class="sub-hint" id="stopsHint">Para ver costo promedio por parada.</div>
+      </div>
+      <input type="number" id="stopsInput" min="0" step="1" placeholder="Ej: 40" />
+    </div>
+  </section>
+
+  <!-- Sección 2: Tipo de vehículo -->
+  <section class="section">
+    <div class="section-title" id="section2Title">2. Tipo de vehículo</div>
+    <p class="hint" id="vehicleHint">
+      Selecciona la categoría que más se parezca a tu carro para estimar el consumo.
+      Puedes ajustar el MPG o las mi/kWh si conoces el valor real.
+    </p>
+
+    <div class="field-group">
+      <div class="label-row">
+        <div class="label" id="categoryLabel">Categoría:</div>
+      </div>
+      <select id="vehicleType">
+        <option value="sedan_compacto">
+          Sedán compacto · Corolla, Civic, Elantra
+        </option>
+        <option value="sedan_mediano">
+          Sedán mediano · Camry, Sonata, Accord
+        </option>
+        <option value="compact_suv">
+          Compact SUV · CR-V, Tucson, RAV4
+        </option>
+        <option value="suv_mediano">
+          SUV mediano · Santa Fe, Passport
+        </option>
+        <option value="suv_grande">
+          SUV grande · 4Runner y similares
+        </option>
+        <option value="pickup_ligera">
+          Pickup ligera · Tacoma, Ranger
+        </option>
+        <option value="pickup_full">
+          Pickup full size · F-150, Silverado
+        </option>
+        <option value="hibrido">
+          Híbrido gas · Prius, RAV4 Hybrid
+        </option>
+        <option value="ev">
+          EV (eléctrico) · Ioniq 5, EV6, Model 3/Y
+        </option>
+      </select>
+      <div class="mode-tag" id="modeTag">
+        Modo actual: <strong>Gasolina</strong>
+      </div>
+    </div>
+
+    <div class="row-two">
+      <div id="mpgBlock">
+        <div class="label-row">
+          <div class="label" id="mpgLabel">MPG estimado (gasolina):</div>
+          <div class="sub-hint" id="mpgHint">
+            Úsalo como referencia; puedes ajustarlo si conoces tu consumo real.
+          </div>
+        </div>
+        <input type="number" id="mpgInput" min="5" step="0.1" />
+      </div>
+
+      <div id="evEffBlock">
+        <div class="label-row">
+          <div class="label" id="miPerKwhLabel">Eficiencia EV (mi/kWh):</div>
+          <div class="sub-hint" id="miPerKwhHint">Solo aplica si eliges EV.</div>
+        </div>
+        <input type="number" id="miPerKwhInput" min="1" step="0.1" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 3: Precios de energía -->
+  <section class="section">
+    <div class="section-title" id="section3Title">3. Precios de gasolina y electricidad</div>
+
+    <div class="row-two">
+      <div>
+        <div class="label-row">
+          <div class="label" id="gasPriceLabel">Precio por galón (USD):</div>
+          <div class="sub-hint" id="gasPriceHint">Ej: 3.50</div>
+        </div>
+        <input type="number" id="gasPriceInput" min="0" step="0.01" placeholder="Ej: 3.50" />
+      </div>
+
+      <div>
+        <div class="label-row">
+          <div class="label" id="kwhPriceLabel">Precio kWh L2 / casa (USD):</div>
+          <div class="sub-hint" id="kwhPriceHint">Ej: 0.15</div>
+        </div>
+        <input type="number" id="kwhPriceInput" min="0" step="0.001" placeholder="Ej: 0.15" />
+      </div>
+    </div>
+  </section>
+
+  <button class="primary-btn" id="calcBtn">
+    Calcular costo aproximado
+  </button>
+
+  <!-- Botón enviar email -->
+  <button class="secondary-btn" id="emailBtn" style="display:none;">
+    Enviar reporte por email
+  </button>
+
+  <!-- Botón ir a la otra app (link a calculadora Amazon Flex) -->
+  <button class="secondary-btn" id="goToFlexBtn">
+    Ir a calculadora Amazon Flex
+  </button>
+
+  <!-- Resultados -->
+  <div class="results" id="resultsBox" style="display:none;">
+    <div class="results-header">
+      <div class="results-title" id="resultsTitle">Resultado</div>
+      <div class="results-chip" id="resultsChip">Estimación</div>
+    </div>
+
+    <div class="res-row">
+      <div class="res-label" id="energyUsedLabel">Energía usada aprox.:</div>
+      <div class="res-value" id="energyUsedValue">0</div>
+    </div>
+
+    <div class="res-row">
+      <div class="res-label" id="totalCostLabel">Costo total del recorrido:</div>
+      <div class="res-value" id="totalCostValue">$0.00</div>
+    </div>
+
+    <div class="res-row">
+      <div class="res-label" id="costPerMileLabel">Costo por milla:</div>
+      <div class="res-value small" id="costPerMileValue">$0.00/mi</div>
+    </div>
+
+    <div class="res-row" id="costPerStopRow" style="display:none;">
+      <div class="res-label" id="costPerStopLabel">Costo promedio por parada:</div>
+      <div class="res-value small" id="costPerStopValue">$0.00</div>
+    </div>
+
+    <div class="res-note" id="resNote">
+      Esto es solo una estimación aproximada. El consumo real puede variar según tráfico,
+      clima, forma de manejar, peso de carga y condiciones del vehículo.
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Powered by Ottoleox</span>
+    <small id="footerSmall">Hecho por un driver, para drivers de gasolina, híbridos y EV.</small>
+  </div>
+</div>
+
+<script>
+  let currentLang = "es";
+  let lastSummary = ""; // texto que usaremos en el email
+
+  const translations = {
+    es: {
+      appTitle: "Trip Cost Estimator",
+      appSubtitle: "Calcula el costo aproximado de tu ruta en gasolina o electricidad según el tipo de vehículo. Pensado para drivers de delivery.",
+      badgeText: "Gas · Híbridos · EV · Ottoleox",
+      section1Title: "1. Datos del recorrido",
+      milesLabel: "Millas totales del recorrido:",
+      milesHint: "Ida, ruta y regreso incluidos.",
+      stopsLabel: "Número de paradas (opcional):",
+      stopsHint: "Para ver costo promedio por parada.",
+      section2Title: "2. Tipo de vehículo",
+      vehicleHint: "Selecciona la categoría que más se parezca a tu carro para estimar el consumo. Puedes ajustar el MPG o las mi/kWh si conoces el valor real.",
+      categoryLabel: "Categoría:",
+      mpgLabel: "MPG estimado (gasolina):",
+      mpgHint: "Úsalo como referencia; puedes ajustarlo si conoces tu consumo real.",
+      miPerKwhLabel: "Eficiencia EV (mi/kWh):",
+      miPerKwhHint: "Solo aplica si eliges EV.",
+      section3Title: "3. Precios de gasolina y electricidad",
+      gasPriceLabel: "Precio por galón (USD):",
+      gasPriceHint: "Ej: 3.50",
+      kwhPriceLabel: "Precio kWh L2 / casa (USD):",
+      kwhPriceHint: "Ej: 0.15",
+      calcBtn: "Calcular costo aproximado",
+      emailBtn: "Enviar reporte por email",
+      goToFlexBtn: "Ir a calculadora Amazon Flex",
+      resultsTitle: "Resultado",
+      resultsChip: "Estimación",
+      energyUsedLabelGas: "Galones usados aprox.:",
+      energyUsedLabelEv: "kWh usados aprox.:",
+      totalCostLabel: "Costo total del recorrido:",
+      costPerMileLabel: "Costo por milla:",
+      costPerStopLabel: "Costo promedio por parada:",
+      resNoteGas: "Esto es una estimación aproximada basada en MPG y precio por galón. El consumo real puede variar según tráfico, clima, peso de carga y tu forma de manejar.",
+      resNoteEv: "Esta es una estimación basada en mi/kWh y precio por kWh. El consumo real puede variar con clima, peso, velocidad y tipo de cargador.",
+      footerSmall: "Hecho por un driver, para drivers de gasolina, híbridos y EV.",
+      modeGas: "Modo actual: <strong>Gasolina</strong>",
+      modeEv: "Modo actual: <strong>EV (eléctrico)</strong>",
+      alerts: {
+        miles: "Por favor, ingresa las millas totales del recorrido.",
+        mpg: "Por favor, ingresa un MPG válido para tu vehículo.",
+        gasPrice: "Por favor, ingresa el precio por galón.",
+        miPerKwh: "Por favor, ingresa una eficiencia en mi/kWh válida para tu EV.",
+        kwhPrice: "Por favor, ingresa el precio por kWh."
+      },
+      email: {
+        subject: "Reporte de ruta - Trip Cost Estimator",
+        greeting: "Hola,\n\nEste es el reporte generado desde la app Trip Cost Estimator:",
+        labelModeGas: "Modo: Gasolina",
+        labelModeEv: "Modo: EV (eléctrico)",
+        labelMiles: "Millas totales",
+        labelStops: "Paradas",
+        labelStopsNA: "Sin paradas registradas",
+        labelEnergyGas: "Galones usados aprox.",
+        labelEnergyEv: "kWh usados aprox.",
+        labelTotalCost: "Costo total",
+        labelCostPerMile: "Costo por milla",
+        labelCostPerStop: "Costo promedio por parada",
+        footer: "Enviado desde la app Ottoleox Trip Cost Estimator."
+      }
+    },
+    en: {
+      appTitle: "Trip Cost Estimator",
+      appSubtitle: "Estimate your route cost in gas or electricity based on your vehicle type. Designed for delivery drivers.",
+      badgeText: "Gas · Hybrids · EV · Ottoleox",
+      section1Title: "1. Trip data",
+      milesLabel: "Total trip miles:",
+      milesHint: "Include drive, route and return.",
+      stopsLabel: "Number of stops (optional):",
+      stopsHint: "To see average cost per stop.",
+      section2Title: "2. Vehicle type",
+      vehicleHint: "Select the category that best matches your vehicle. You can adjust MPG or mi/kWh if you know your real numbers.",
+      categoryLabel: "Category:",
+      mpgLabel: "Estimated MPG (gas):",
+      mpgHint: "Use it as a reference; adjust if you know your real MPG.",
+      miPerKwhLabel: "EV efficiency (mi/kWh):",
+      miPerKwhHint: "Only applies if you choose EV.",
+      section3Title: "3. Gas & electricity prices",
+      gasPriceLabel: "Gas price per gallon (USD):",
+      gasPriceHint: "e.g. 3.50",
+      kwhPriceLabel: "kWh price L2 / home (USD):",
+      kwhPriceHint: "e.g. 0.15",
+      calcBtn: "Calculate approximate cost",
+      emailBtn: "Send report by email",
+      goToFlexBtn: "Go to Amazon Flex calculator",
+      resultsTitle: "Result",
+      resultsChip: "Estimate",
+      energyUsedLabelGas: "Approx. gallons used:",
+      energyUsedLabelEv: "Approx. kWh used:",
+      totalCostLabel: "Total trip cost:",
+      costPerMileLabel: "Cost per mile:",
+      costPerStopLabel: "Average cost per stop:",
+      resNoteGas: "This is an approximate estimate based on MPG and gas price. Real-world consumption can vary with traffic, weather, load and driving style.",
+      resNoteEv: "This is an approximate estimate based on mi/kWh and kWh price. Real consumption can change with temperature, speed, weight and charger type.",
+      footerSmall: "Made by a driver, for gas, hybrid and EV drivers.",
+      modeGas: "Current mode: <strong>Gasoline</strong>",
+      modeEv: "Current mode: <strong>EV (electric)</strong>",
+      alerts: {
+        miles: "Please enter the total trip miles.",
+        mpg: "Please enter a valid MPG for your vehicle.",
+        gasPrice: "Please enter the gas price per gallon.",
+        miPerKwh: "Please enter a valid EV efficiency in mi/kWh.",
+        kwhPrice: "Please enter the kWh price."
+      },
+      email: {
+        subject: "Trip report - Trip Cost Estimator",
+        greeting: "Hi,\n\nHere is the report generated from the Trip Cost Estimator app:",
+        labelModeGas: "Mode: Gasoline",
+        labelModeEv: "Mode: EV (electric)",
+        labelMiles: "Total miles",
+        labelStops: "Stops",
+        labelStopsNA: "No stops entered",
+        labelEnergyGas: "Approx. gallons used",
+        labelEnergyEv: "Approx. kWh used",
+        labelTotalCost: "Total cost",
+        labelCostPerMile: "Cost per mile",
+        labelCostPerStop: "Average cost per stop",
+        footer: "Sent from the Ottoleox Trip Cost Estimator app."
+      }
+    }
+  };
+
+  const vehicleTypeEl   = document.getElementById("vehicleType");
+  const mpgInput        = document.getElementById("mpgInput");
+  const miPerKwhInput   = document.getElementById("miPerKwhInput");
+  const modeTag         = document.getElementById("modeTag");
+
+  const milesInput      = document.getElementById("milesInput");
+  const stopsInput      = document.getElementById("stopsInput");
+  const gasPriceInput   = document.getElementById("gasPriceInput");
+  const kwhPriceInput   = document.getElementById("kwhPriceInput");
+
+  const resultsBox      = document.getElementById("resultsBox");
+  const resultsTitle    = document.getElementById("resultsTitle");
+  const resultsChip     = document.getElementById("resultsChip");
+  const energyUsedLabel = document.getElementById("energyUsedLabel");
+  const energyUsedValue = document.getElementById("energyUsedValue");
+  const totalCostLabel  = document.getElementById("totalCostLabel");
+  const totalCostValue  = document.getElementById("totalCostValue");
+  const costPerMileLabel= document.getElementById("costPerMileLabel");
+  const costPerMileValue= document.getElementById("costPerMileValue");
+  const costPerStopRow  = document.getElementById("costPerStopRow");
+  const costPerStopLabel= document.getElementById("costPerStopLabel");
+  const costPerStopValue= document.getElementById("costPerStopValue");
+  const resNote         = document.getElementById("resNote");
+
+  const calcBtn         = document.getElementById("calcBtn");
+  const emailBtn        = document.getElementById("emailBtn");
+  const goToFlexBtn     = document.getElementById("goToFlexBtn");
+  const mpgBlock        = document.getElementById("mpgBlock");
+  const evEffBlock      = document.getElementById("evEffBlock");
+
+  const appTitle        = document.getElementById("appTitle");
+  const appSubtitle     = document.getElementById("appSubtitle");
+  const badgeText       = document.getElementById("badgeText");
+  const section1Title   = document.getElementById("section1Title");
+  const section2Title   = document.getElementById("section2Title");
+  const section3Title   = document.getElementById("section3Title");
+  const milesLabelEl    = document.getElementById("milesLabel");
+  const milesHintEl     = document.getElementById("milesHint");
+  const stopsLabelEl    = document.getElementById("stopsLabel");
+  const stopsHintEl     = document.getElementById("stopsHint");
+  const vehicleHintEl   = document.getElementById("vehicleHint");
+  const categoryLabelEl = document.getElementById("categoryLabel");
+  const mpgLabelEl      = document.getElementById("mpgLabel");
+  const mpgHintEl       = document.getElementById("mpgHint");
+  const miPerKwhLabelEl = document.getElementById("miPerKwhLabel");
+  const miPerKwhHintEl  = document.getElementById("miPerKwhHint");
+  const gasPriceLabelEl = document.getElementById("gasPriceLabel");
+  const gasPriceHintEl  = document.getElementById("gasPriceHint");
+  const kwhPriceLabelEl = document.getElementById("kwhPriceLabel");
+  const kwhPriceHintEl  = document.getElementById("kwhPriceHint");
+  const footerSmall     = document.getElementById("footerSmall");
+
+  const langTabs        = document.querySelectorAll(".lang-tab");
+
+  // Defaults por tipo de vehículo
+  const defaults = {
+    sedan_compacto: { mpg: 32, miPerKwh: null, mode: "gas" },
+    sedan_mediano:  { mpg: 29, miPerKwh: null, mode: "gas" },
+    compact_suv:    { mpg: 28, miPerKwh: null, mode: "gas" },
+    suv_mediano:    { mpg: 24, miPerKwh: null, mode: "gas" },
+    suv_grande:     { mpg: 18, miPerKwh: null, mode: "gas" },
+    pickup_ligera:  { mpg: 20, miPerKwh: null, mode: "gas" },
+    pickup_full:    { mpg: 17, miPerKwh: null, mode: "gas" },
+    hibrido:        { mpg: 45, miPerKwh: null, mode: "gas" },
+    ev:             { mpg: null, miPerKwh: 3.3, mode: "ev" }
+  };
+
+  function applyTranslations(lang) {
+    const t = translations[lang];
+    if (!t) return;
+    currentLang = lang;
+
+    appTitle.textContent = t.appTitle;
+    appSubtitle.textContent = t.appSubtitle;
+    badgeText.textContent = t.badgeText;
+    section1Title.textContent = t.section1Title;
+    section2Title.textContent = t.section2Title;
+    section3Title.textContent = t.section3Title;
+    milesLabelEl.textContent = t.milesLabel;
+    milesHintEl.textContent = t.milesHint;
+    stopsLabelEl.textContent = t.stopsLabel;
+    stopsHintEl.textContent = t.stopsHint;
+    vehicleHintEl.textContent = t.vehicleHint;
+    categoryLabelEl.textContent = t.categoryLabel;
+    mpgLabelEl.textContent = t.mpgLabel;
+    mpgHintEl.textContent = t.mpgHint;
+    miPerKwhLabelEl.textContent = t.miPerKwhLabel;
+    miPerKwhHintEl.textContent = t.miPerKwhHint;
+    gasPriceLabelEl.textContent = t.gasPriceLabel;
+    gasPriceHintEl.textContent = t.gasPriceHint;
+    kwhPriceLabelEl.textContent = t.kwhPriceLabel;
+    kwhPriceHintEl.textContent = t.kwhPriceHint;
+    calcBtn.textContent = t.calcBtn;
+    emailBtn.textContent = t.emailBtn;
+    goToFlexBtn.textContent = t.goToFlexBtn;
+    resultsTitle.textContent = t.resultsTitle;
+    resultsChip.textContent = t.resultsChip;
+    totalCostLabel.textContent = t.totalCostLabel;
+    costPerMileLabel.textContent = t.costPerMileLabel;
+    costPerStopLabel.textContent = t.costPerStopLabel;
+    footerSmall.textContent = t.footerSmall;
+
+    // Modo visible según selección actual
+    const type = vehicleTypeEl.value;
+    const def = defaults[type];
+    if (def && def.mode === "ev") {
+      modeTag.innerHTML = t.modeEv;
+    } else {
+      modeTag.innerHTML = t.modeGas;
+    }
+  }
+
+  function updateVehicleDefaults() {
+    const type = vehicleTypeEl.value;
+    const def  = defaults[type];
+    const t = translations[currentLang];
+
+    if (!def) return;
+
+    if (def.mode === "gas") {
+      modeTag.innerHTML = t.modeGas;
+      mpgBlock.style.opacity = "1";
+      mpgBlock.style.pointerEvents = "auto";
+      evEffBlock.style.opacity = "0.5";
+      evEffBlock.style.pointerEvents = "none";
+
+      if (def.mpg) mpgInput.value = def.mpg;
+      if (!gasPriceInput.value) gasPriceInput.value = "3.50";
+    } else {
+      modeTag.innerHTML = t.modeEv;
+      mpgBlock.style.opacity = "0.5";
+      mpgBlock.style.pointerEvents = "none";
+      evEffBlock.style.opacity = "1";
+      evEffBlock.style.pointerEvents = "auto";
+
+      if (def.miPerKwh) miPerKwhInput.value = def.miPerKwh;
+      if (!kwhPriceInput.value) kwhPriceInput.value = "0.15";
+    }
+  }
+
+  function formatCurrency(num) {
+    if (isNaN(num)) return "$0.00";
+    return "$" + num.toFixed(2);
+  }
+
+  function calculate() {
+    const t = translations[currentLang];
+
+    const type = vehicleTypeEl.value;
+    const def  = defaults[type];
+    const mode = def.mode;
+
+    const miles = parseFloat(milesInput.value);
+    const stops = parseFloat(stopsInput.value);
+    const mpg   = parseFloat(mpgInput.value);
+    const miPerKwh = parseFloat(miPerKwhInput.value);
+    const gasPrice = parseFloat(gasPriceInput.value);
+    const kwhPrice = parseFloat(kwhPriceInput.value);
+
+    if (!miles || miles <= 0) {
+      alert(t.alerts.miles);
+      return;
+    }
+
+    let summaryLines = [];
+
+    if (mode === "gas") {
+      if (!mpg || mpg <= 0) {
+        alert(t.alerts.mpg);
+        return;
+      }
+      if (!gasPrice || gasPrice <= 0) {
+        alert(t.alerts.gasPrice);
+        return;
+      }
+
+      const gallons = miles / mpg;
+      const totalCost = gallons * gasPrice;
+      const costPerMile = totalCost / miles;
+      const costPerStop = stops && stops > 0 ? totalCost / stops : null;
+
+      resultsTitle.textContent = t.resultsTitle;
+      resultsChip.textContent = `${mpg.toFixed(1)} MPG · $${gasPrice.toFixed(2)}/gal`;
+
+      energyUsedLabel.textContent = t.energyUsedLabelGas;
+      energyUsedValue.textContent = gallons.toFixed(2) + " gal";
+
+      totalCostLabel.textContent = t.totalCostLabel;
+      totalCostValue.textContent = formatCurrency(totalCost);
+
+      costPerMileLabel.textContent = t.costPerMileLabel;
+      costPerMileValue.textContent = formatCurrency(costPerMile) + "/mi";
+
+      if (costPerStop) {
+        costPerStopRow.style.display = "flex";
+        costPerStopLabel.textContent = t.costPerStopLabel;
+        costPerStopValue.textContent = formatCurrency(costPerStop);
+      } else {
+        costPerStopRow.style.display = "none";
+      }
+
+      resNote.textContent = t.resNoteGas;
+
+      // Construir resumen para email
+      const e = t.email;
+      summaryLines.push(e.labelModeGas);
+      summaryLines.push(`${e.labelMiles}: ${miles.toFixed(1)} mi`);
+      if (stops && stops > 0) {
+        summaryLines.push(`${e.labelStops}: ${stops}`);
+      } else {
+        summaryLines.push(`${e.labelStops}: ${e.labelStopsNA}`);
+      }
+      summaryLines.push(`${e.labelEnergyGas}: ${gallons.toFixed(2)} gal`);
+      summaryLines.push(`${e.labelTotalCost}: ${formatCurrency(totalCost)}`);
+      summaryLines.push(`${e.labelCostPerMile}: ${formatCurrency(costPerMile)}/mi`);
+      if (costPerStop) {
+        summaryLines.push(`${e.labelCostPerStop}: ${formatCurrency(costPerStop)}`);
+      }
+
+    } else {
+      // EV
+      if (!miPerKwh || miPerKwh <= 0) {
+        alert(t.alerts.miPerKwh);
+        return;
+      }
+      if (!kwhPrice || kwhPrice <= 0) {
+        alert(t.alerts.kwhPrice);
+        return;
+      }
+
+      const kwhUsed = miles / miPerKwh;
+      const totalCost = kwhUsed * kwhPrice;
+      const costPerMile = totalCost / miles;
+      const costPerStop = stops && stops > 0 ? totalCost / stops : null;
+
+      resultsTitle.textContent = t.resultsTitle;
+      resultsChip.textContent = `${miPerKwh.toFixed(2)} mi/kWh · $${kwhPrice.toFixed(3)}/kWh`;
+
+      energyUsedLabel.textContent = t.energyUsedLabelEv;
+      energyUsedValue.textContent = kwhUsed.toFixed(2) + " kWh";
+
+      totalCostLabel.textContent = t.totalCostLabel;
+      totalCostValue.textContent = formatCurrency(totalCost);
+
+      costPerMileLabel.textContent = t.costPerMileLabel;
+      costPerMileValue.textContent = formatCurrency(costPerMile) + "/mi";
+
+      if (costPerStop) {
+        costPerStopRow.style.display = "flex";
+        costPerStopLabel.textContent = t.costPerStopLabel;
+        costPerStopValue.textContent = formatCurrency(costPerStop);
+      } else {
+        costPerStopRow.style.display = "none";
+      }
+
+      resNote.textContent = t.resNoteEv;
+
+      const e = t.email;
+      summaryLines.push(e.labelModeEv);
+      summaryLines.push(`${e.labelMiles}: ${miles.toFixed(1)} mi`);
+      if (stops && stops > 0) {
+        summaryLines.push(`${e.labelStops}: ${stops}`);
+      } else {
+        summaryLines.push(`${e.labelStops}: ${e.labelStopsNA}`);
+      }
+      summaryLines.push(`${e.labelEnergyEv}: ${kwhUsed.toFixed(2)} kWh`);
+      summaryLines.push(`${e.labelTotalCost}: ${formatCurrency(totalCost)}`);
+      summaryLines.push(`${e.labelCostPerMile}: ${formatCurrency(costPerMile)}/mi`);
+      if (costPerStop) {
+        summaryLines.push(`${e.labelCostPerStop}: ${formatCurrency(costPerStop)}`);
+      }
+    }
+
+    lastSummary = summaryLines.join("\n");
+    resultsBox.style.display = "block";
+    emailBtn.style.display = "block";
+  }
+
+  function sendEmailReport() {
+    if (!lastSummary) return;
+    const t = translations[currentLang];
+    const e = t.email;
+
+    const subject = encodeURIComponent(e.subject);
+    const body = encodeURIComponent(
+      `${e.greeting}\n\n${lastSummary}\n\n${e.footer}`
+    );
+
+    // mailto sin destinatario fijo, para que el usuario elija el correo
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  }
+
+  function initLangTabs() {
+    langTabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        langTabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        const lang = tab.getAttribute("data-lang");
+        applyTranslations(lang);
+      });
+    });
+  }
+
+  function initFlexButton() {
+    goToFlexBtn.addEventListener("click", () => {
+      // Cambia esta URL por la de tu calculadora Amazon Flex en GitHub Pages
+      const flexUrl = "https://oljb17-maker.github.io/Amazonflexcalculator/";
+      window.location.href = flexUrl;
+    });
+  }
+
+  // Inicialización
+  applyTranslations("es");
+  updateVehicleDefaults();
+  initLangTabs();
+  initFlexButton();
+
+  vehicleTypeEl.addEventListener("change", updateVehicleDefaults);
+  calcBtn.addEventListener("click", calculate);
+  emailBtn.addEventListener("click", sendEmailReport);
+</script>
+</body>
+</html>
