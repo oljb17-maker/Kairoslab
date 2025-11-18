@@ -358,7 +358,7 @@
     <div class="field-group">
       <div class="label-row">
         <div class="label" id="stopsLabel">Número de paradas (opcional):</div>
-        <div class="sub-hint" id="stopsHint">Para ver costo promedio por parada.</div>
+        <div class="sub-hint" id="stopsHint">Para ver costo promedio por parada y ajustar consumo por stop & go.</div>
       </div>
       <input type="number" id="stopsInput" min="0" step="1" placeholder="Ej: 40" />
     </div>
@@ -497,7 +497,8 @@
 
     <div class="res-note" id="resNote">
       Esto es solo una estimación aproximada. El consumo real puede variar según tráfico,
-      clima, forma de manejar, peso de carga y condiciones del vehículo.
+      clima, forma de manejar, peso de carga y condiciones del vehículo. Si ingresas paradas,
+      se añade un pequeño ajuste por “stop & go”.
     </div>
   </div>
 
@@ -520,7 +521,7 @@
       milesLabel: "Millas totales del recorrido:",
       milesHint: "Ida, ruta y regreso incluidos.",
       stopsLabel: "Número de paradas (opcional):",
-      stopsHint: "Para ver costo promedio por parada.",
+      stopsHint: "Para ver costo promedio por parada y ajustar consumo por stop & go.",
       section2Title: "2. Tipo de vehículo",
       vehicleHint: "Selecciona la categoría que más se parezca a tu carro para estimar el consumo. Puedes ajustar el MPG o las mi/kWh si conoces el valor real.",
       categoryLabel: "Categoría:",
@@ -543,8 +544,8 @@
       totalCostLabel: "Costo total del recorrido:",
       costPerMileLabel: "Costo por milla:",
       costPerStopLabel: "Costo promedio por parada:",
-      resNoteGas: "Esto es una estimación aproximada basada en MPG y precio por galón. El consumo real puede variar según tráfico, clima, peso de carga y tu forma de manejar.",
-      resNoteEv: "Esta es una estimación basada en mi/kWh y precio por kWh. El consumo real puede variar con clima, peso, velocidad y tipo de cargador.",
+      resNoteGas: "Esto es una estimación aproximada basada en MPG y precio por galón. El consumo real puede variar según tráfico, clima, peso de carga y tu forma de manejar. Si agregas paradas, se añade un ajuste por stop & go.",
+      resNoteEv: "Esta es una estimación basada en mi/kWh y precio por kWh. El consumo real puede variar con clima, peso, velocidad y tipo de cargador. Si agregas paradas, se añade un ajuste por stop & go.",
       footerSmall: "Hecho por un driver, para drivers de gasolina, híbridos y EV.",
       modeGas: "Modo actual: <strong>Gasolina</strong>",
       modeEv: "Modo actual: <strong>EV (eléctrico)</strong>",
@@ -579,7 +580,7 @@
       milesLabel: "Total trip miles:",
       milesHint: "Include drive, route and return.",
       stopsLabel: "Number of stops (optional):",
-      stopsHint: "To see average cost per stop.",
+      stopsHint: "To see average cost per stop and adjust for stop & go.",
       section2Title: "2. Vehicle type",
       vehicleHint: "Select the category that best matches your vehicle. You can adjust MPG or mi/kWh if you know your real numbers.",
       categoryLabel: "Category:",
@@ -602,8 +603,8 @@
       totalCostLabel: "Total trip cost:",
       costPerMileLabel: "Cost per mile:",
       costPerStopLabel: "Average cost per stop:",
-      resNoteGas: "This is an approximate estimate based on MPG and gas price. Real-world consumption can vary with traffic, weather, load and driving style.",
-      resNoteEv: "This is an approximate estimate based on mi/kWh and kWh price. Real consumption can change with temperature, speed, weight and charger type.",
+      resNoteGas: "This is an approximate estimate based on MPG and gas price. Real-world consumption can vary with traffic, weather, load and driving style. If you enter stops, a stop & go adjustment is applied.",
+      resNoteEv: "This is an approximate estimate based on mi/kWh and kWh price. Real consumption can change with temperature, speed, weight and charger type. If you enter stops, a stop & go adjustment is applied.",
       footerSmall: "Made by a driver, for gas, hybrid and EV drivers.",
       modeGas: "Current mode: <strong>Gasoline</strong>",
       modeEv: "Current mode: <strong>EV (electric)</strong>",
@@ -638,7 +639,7 @@
       milesLabel: "Miles totaux du trajet :",
       milesHint: "Inclure aller, tournée et retour.",
       stopsLabel: "Nombre d'arrêts (optionnel) :",
-      stopsHint: "Pour voir le coût moyen par arrêt.",
+      stopsHint: "Pour voir le coût moyen par arrêt et ajuster le stop & go.",
       section2Title: "2. Type de véhicule",
       vehicleHint: "Choisis la catégorie qui se rapproche le plus de ton véhicule. Tu peux ajuster le MPG ou les mi/kWh si tu connais tes chiffres réels.",
       categoryLabel: "Catégorie :",
@@ -661,8 +662,8 @@
       totalCostLabel: "Coût total du trajet :",
       costPerMileLabel: "Coût par mile :",
       costPerStopLabel: "Coût moyen par arrêt :",
-      resNoteGas: "Ceci est une estimation basée sur le MPG et le prix de l'essence. La consommation réelle peut varier avec le trafic, la météo, la charge et ton style de conduite.",
-      resNoteEv: "Ceci est une estimation basée sur mi/kWh et le prix du kWh. La conso réelle varie avec la température, la vitesse, le poids et le type de borne.",
+      resNoteGas: "Ceci est une estimation basée sur le MPG et le prix de l'essence. La consommation réelle peut varier avec le trafic, la météo, la charge et ton style de conduite. Si tu saisis des arrêts, un ajustement stop & go est appliqué.",
+      resNoteEv: "Ceci est une estimation basée sur mi/kWh et le prix du kWh. La conso réelle varie avec la température, la vitesse, le poids et le type de borne. Si tu saisis des arrêts, un ajustement stop & go est appliqué.",
       footerSmall: "Créé par un driver, pour les conducteurs essence, hybrides et EV.",
       modeGas: "Mode actuel : <strong>Essence</strong>",
       modeEv: "Mode actuel : <strong>EV (électrique)</strong>",
@@ -697,7 +698,7 @@
       milesLabel: "Milhas totais da rota:",
       milesHint: "Ida, rota e volta incluídas.",
       stopsLabel: "Número de paradas (opcional):",
-      stopsHint: "Para ver o custo médio por parada.",
+      stopsHint: "Para ver o custo médio por parada e ajustar consumo de stop & go.",
       section2Title: "2. Tipo de veículo",
       vehicleHint: "Selecione a categoria que mais se parece com seu carro. Você pode ajustar o MPG ou mi/kWh se souber seu consumo real.",
       categoryLabel: "Categoria:",
@@ -720,8 +721,8 @@
       totalCostLabel: "Custo total da rota:",
       costPerMileLabel: "Custo por milha:",
       costPerStopLabel: "Custo médio por parada:",
-      resNoteGas: "Isto é apenas uma estimativa com base em MPG e preço do galão. O consumo real varia com trânsito, clima, carga e estilo de direção.",
-      resNoteEv: "Esta é uma estimativa baseada em mi/kWh e preço do kWh. O consumo real muda com temperatura, velocidade, peso e tipo de carregador.",
+      resNoteGas: "Isto é apenas uma estimativa com base em MPG e preço do galão. O consumo real varia com trânsito, clima, carga e estilo de direção. Se você informar paradas, aplicamos um ajuste de stop & go.",
+      resNoteEv: "Esta é uma estimativa baseada em mi/kWh e preço do kWh. O consumo real muda com temperatura, velocidade, peso e tipo de carregador. Se você informar paradas, aplicamos um ajuste de stop & go.",
       footerSmall: "Feito por um driver, para motoristas de gasolina, híbridos e EV.",
       modeGas: "Modo atual: <strong>Gasolina</strong>",
       modeEv: "Modo atual: <strong>EV (elétrico)</strong>",
@@ -756,7 +757,7 @@
       milesLabel: "Общее количество миль:",
       milesHint: "Включи дорогу туда, маршрут и обратный путь.",
       stopsLabel: "Количество остановок (опционально):",
-      stopsHint: "Чтобы увидеть среднюю стоимость на одну остановку.",
+      stopsHint: "Чтобы увидеть среднюю стоимость на одну остановку и учесть stop & go.",
       section2Title: "2. Тип автомобиля",
       vehicleHint: "Выбери категорию, которая больше всего похожа на твою машину. Можно подправить MPG или mi/kWh, если знаешь реальные цифры.",
       categoryLabel: "Категория:",
@@ -779,8 +780,8 @@
       totalCostLabel: "Итоговая стоимость поездки:",
       costPerMileLabel: "Стоимость за милю:",
       costPerStopLabel: "Средняя стоимость за остановку:",
-      resNoteGas: "Это приблизительная оценка, основанная на MPG и цене за галлон. Реальный расход зависит от пробок, погоды, веса груза и стиля вождения.",
-      resNoteEv: "Это приблизительная оценка по mi/kWh и цене kWh. Реальный расход меняется в зависимости от температуры, скорости, веса и типа зарядки.",
+      resNoteGas: "Это приблизительная оценка, основанная на MPG и цене за галлон. Реальный расход зависит от пробок, погоды, веса груза и стиля вождения. Если указаны остановки, применяется корректировка stop & go.",
+      resNoteEv: "Это приблизительная оценка по mi/kWh и цене kWh. Реальный расход меняется в зависимости от температуры, скорости, веса и типа зарядки. Если указаны остановки, применяется корректировка stop & go.",
       footerSmall: "Создано драйвером для драйверов на бензине, гибридов и EV.",
       modeGas: "Текущий режим: <strong>Бензин</strong>",
       modeEv: "Текущий режим: <strong>EV (электро)</strong>",
@@ -918,7 +919,6 @@
       modeTag.innerHTML = t.modeGas;
     }
 
-    // Actualizar nota según modo actual si ya hay resultado
     if (resultsBox.style.display === "block") {
       const mode = def && def.mode === "ev" ? "ev" : "gas";
       resNote.textContent = mode === "ev" ? t.resNoteEv : t.resNoteGas;
@@ -958,6 +958,17 @@
     return "$" + num.toFixed(2);
   }
 
+  // Ajuste de consumo por número de paradas (stop & go)
+  function getStopGoFactor(stops) {
+    if (!stops || stops <= 0) return 1;
+
+    if (stops <= 20) return 1.05;
+    if (stops <= 40) return 1.10;
+    if (stops <= 60) return 1.15;
+    if (stops <= 80) return 1.18;
+    return 1.25; // 80+ paradas
+  }
+
   function calculate() {
     const t = translations[currentLang];
 
@@ -977,6 +988,8 @@
       return;
     }
 
+    const stopFactor = getStopGoFactor(stops);
+
     let summaryLines = [];
 
     if (mode === "gas") {
@@ -989,13 +1002,15 @@
         return;
       }
 
-      const gallons = miles / mpg;
+      const gallonsBase = miles / mpg;
+      const gallons = gallonsBase * stopFactor;
       const totalCost = gallons * gasPrice;
       const costPerMile = totalCost / miles;
       const costPerStop = stops && stops > 0 ? totalCost / stops : null;
 
       resultsTitle.textContent = t.resultsTitle;
-      resultsChip.textContent = `${mpg.toFixed(1)} MPG · $${gasPrice.toFixed(2)}/gal`;
+      const stopTag = (stops && stops > 0) ? " · stop&go" : "";
+      resultsChip.textContent = `${mpg.toFixed(1)} MPG · $${gasPrice.toFixed(2)}/gal${stopTag}`;
 
       energyUsedLabel.textContent = t.energyUsedLabelGas;
       energyUsedValue.textContent = gallons.toFixed(2) + " gal";
@@ -1041,13 +1056,15 @@
         return;
       }
 
-      const kwhUsed = miles / miPerKwh;
+      const kwhBase = miles / miPerKwh;
+      const kwhUsed = kwhBase * stopFactor;
       const totalCost = kwhUsed * kwhPrice;
       const costPerMile = totalCost / miles;
       const costPerStop = stops && stops > 0 ? totalCost / stops : null;
 
       resultsTitle.textContent = t.resultsTitle;
-      resultsChip.textContent = `${miPerKwh.toFixed(2)} mi/kWh · $${kwhPrice.toFixed(3)}/kWh`;
+      const stopTag = (stops && stops > 0) ? " · stop&go" : "";
+      resultsChip.textContent = `${miPerKwh.toFixed(2)} mi/kWh · $${kwhPrice.toFixed(3)}/kWh${stopTag}`;
 
       energyUsedLabel.textContent = t.energyUsedLabelEv;
       energyUsedValue.textContent = kwhUsed.toFixed(2) + " kWh";
